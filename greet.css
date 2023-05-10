@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+h1, main {
+    text-align: center;
+}
+
+img {
+    position: relative;
+    top: 6px;
+}
+
+body, input[type="text"] {
+    font-family: 'Lato';
+}
+
+label {
+    font-size: 24px;
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    height: 26px;
+    border: 1px solid #219ebc;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 14px;
+
+}
+
+.greetBtn {
+    height: 30px;
+    color: #219ebc;
+    border: 1px solid #219ebc;
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.greetBtn:hover {
+    border: 1px solid #FAF9F6;
+    border-radius: 1px;
+    background-color: #219ebc;
+    color: #FAF9F6
+}
+
+img {
+    height: 32px;
+    width: 32px;
+}
+
+.timesGreeted {
+    font-size: 24px;
+}
+
+.numHeading {
+    margin-bottom: 12px;
+}
+
+.container {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 50%;
+    margin: 0 auto;
+    padding-bottom: 16px;
+    margin-top: 16px;
+}
+
+.underline {
+    position: relative;
+}
+
+.underline:after {
+    content: "";
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    left: 200px;
+    height: 1px;
+    width: 240px;
+}
+  
+.greetingHeading {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.result {
+    margin-top: 0;
+    padding-top: 10px;
+    visibility: hidden;
+    padding-bottom: 4px;
+    font-size: 20px;
+}
+
+.resetBtn {
+    margin-top: 12px;
+    height: 28px;
+    color: #219ebc;
+    border: 1px solid #219ebc;
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.resetBtn:hover {
+    border: 1px solid #FAF9F6;
+    border-radius: 1px;
+    background-color: #219ebc;
+    color: #FAF9F6
+}
+
+.errMsg {
+    color: #E40046;
+    padding-bottom: 4px;
+    margin-bottom: 0;
+    visibility: hidden;
+}
+
+.langHeading {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.greetBtn:active {
+    transform: translateY(2px);
+}
+
+.resetBtn:active {
+    transform: translateY(2px);
+}
+
+input[type="text"]:focus::placeholder {
+    color: transparent;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    caret-color: #219ebc;
+}

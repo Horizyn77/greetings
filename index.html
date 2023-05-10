@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings</title>
+    <link rel="stylesheet" href="greet.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Greet Me</h1>
+        <main>
+            <h2>Name: </h2>
+            <input type="text" name="" id="" placeholder="Please enter your name">
+            <button class="greetBtn">Greet Me!</button>
+            <div class="errMsg">A</div>
+            <h2 class="langHeading">Language: </h2>
+            <input type="radio" name="lang" id="english" value="eng">
+            <img src="images/001-united-kingdom.png" alt="">
+            <label for="english">English</label>
+            <input type="radio" name="lang" id="arabic" value="ara">
+            <img src="images/002-saudi-arabia.png" alt="">
+            <label for="arabic">Arabic</label>
+            <input type="radio" name="lang" id="urdu" value="urd">
+            <img src="images/003-pakistan.png" alt="">
+            <label for="urdu">Urdu</label>
+            <h2 class="numHeading">Number of times greeted:</h2>
+            <div class="timesGreeted"></div>
+            <button class="resetBtn">Reset</button>
+            <h2 class="greetingHeading">Greeting:</h2>
+            <div class="result">A</div>
+            <div class="underline"></div>
+        </main>
+    </div>
+    <script src="greet.js"></script>
+</body>
+
+</html>
