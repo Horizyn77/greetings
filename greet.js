@@ -5,6 +5,7 @@ const numGreeted = document.querySelector(".timesGreeted");
 const resetBtn = document.querySelector(".resetBtn");
 const err = document.querySelector(".errMsg");
 const radBtns = document.querySelectorAll('input[type="radio"]');
+let buttonCheck;
 
 const greetings = Greetings();
 
@@ -15,20 +16,20 @@ let namesGreeted = {};
 function Greetings() {
 
     let greeting = "";
+    let errorMsg;
+    let errorVisibility = "hidden";
 
-    function setGreeting(name) {
+    function setGreeting(name, radioBtn) {
         const engGreeting = "Hello";
         const araGreeting = "Marhaba";
         const urdGreeting = "Salaam";
 
-        const checkedBtn = document.querySelector('input[name="lang"]:checked');
-
-        if (checkedBtn) {
-            if(checkedBtn.value === "eng") {
+        if (radioBtn) {
+            if(radioBtn === "eng") {
                 greeting = `${engGreeting}, ${name}`;
-            } else if (checkedBtn.value === "ara") {
+            } else if (radioBtn === "ara") {
                 greeting = `${araGreeting}, ${name}`;
-            } else if (checkedBtn.value === "urd") {
+            } else if (radioBtn === "urd") {
                 greeting = `${urdGreeting}, ${name}`;
             }
         }
@@ -38,43 +39,98 @@ function Greetings() {
         return greeting;
     }
 
+    function setCounter(name) {
+        if(namesGreeted[name] === undefined) {
+            namesGreeted[name] = true;
+        }
+
+        if (!localStorage[name]) {
+            counter++;
+        }
+
+        localStorage[name] = true;
+
+        localStorage['greetedTimes'] = counter;    
+        
+    }
+
+    function getCounter() {
+        return counter;
+    }
+
+    function setReset() {
+        counter = 0;
+        localStorage.clear();
+        localStorage['greetedTimes'] = counter;
+        namesGreeted = {};
+    }
+
+    function setErrMsg(input, checked, nums) {
+        if(input && checked && nums) {
+            errorMsg = "Numbers are not allowed";
+            errorVisibility = "visible";
+        } else if (input && !checked && nums) {
+            errorMsg = "Numbers are not allowed";
+            errorVisibility = "visible";
+        } else if(input && checked && !nums) {
+            displayGreeting();
+            errorVisibility = "hidden";
+        } else if (!input && !checked) {
+            errorMsg = "A name and language is required";
+            errorVisibility = "visible";
+        } else if (input && !checked) {
+            errorMsg = "A language is required";
+            errorVisibility = "visible";
+        } else if (!input && checked) {
+            errorMsg = "A name is required";
+            errorVisibility = "visible";
+        }
+    }
+
+    function getErrMsg() {
+        return errorMsg;
+    }
+
+    function getErrorVisibility() {
+        return errorVisibility;
+    }
     return {
         setGreeting,
-        getGreeting
+        getGreeting,
+        setCounter,
+        getCounter,
+        setReset,
+        setErrMsg,
+        getErrMsg,
+        getErrorVisibility
     }
+}
+
+function displayGreeting() {
+        greetings.setGreeting(person.value, buttonCheck.value);
+        
+        result.innerHTML = greetings.getGreeting();
+        result.style.visibility = "visible";
+ 
+        greetings.setCounter(person.value);
+    
+        numGreeted.innerText = localStorage['greetedTimes'];
 }
 
 function greetingsClicked() {
 
-    const checkBtn = document.querySelector('input[name="lang"]:checked');
-    
-    if(person.value !== "" && checkBtn) {
-        
-        greetings.setGreeting(person.value);
+    const checkedBtn = document.querySelector('input[name="lang"]:checked');
 
-        result.innerHTML = greetings.getGreeting();
-        result.style.visibility = "visible";
- 
-        if(namesGreeted[person.value] === undefined) {
-            counter++;
-    
-            namesGreeted[person.value] = 1;
-        } else {
-            namesGreeted[person.value]++;
-        }
-    
-        localStorage['greetedTimes'] = counter;
-    
-        numGreeted.innerText = localStorage['greetedTimes'];
-        
-    } else if (!person.value && !checkBtn) {
+    buttonCheck = checkedBtn;
 
-        err.innerText = "A name and language is required";
-        err.style.visibility = "visible";
-    } else if (!checkBtn) {
-        err.innerText = "A language is required";
-        err.style.visibility = "visible";
-    }
+    const pattern = /\d/;
+
+    const containNums = pattern.test(person.value)
+
+    greetings.setErrMsg(person.value, checkedBtn, containNums);
+
+    err.innerText = greetings.getErrMsg();
+    err.style.visibility = greetings.getErrorVisibility();
 }
 
 if(localStorage['greetedTimes']) {
@@ -83,24 +139,22 @@ if(localStorage['greetedTimes']) {
 }
 
 function reset() {
-    counter = 0;
-    localStorage['greetedTimes'] = counter;
+    greetings.setReset();
     numGreeted.innerText = localStorage['greetedTimes'];
-    namesGreeted = {};
     person.value = "";
     result.style.visibility = "hidden";
+    err.style.visibility = "hidden";
     radBtns.forEach((item) => {
         if (item.checked) {
-            item.checked = false;s
+            item.checked = false;
         }
     })
-
 }
 
 greetBtn.addEventListener("click", greetingsClicked);
 resetBtn.addEventListener("click", reset);
 person.addEventListener("focus", () => {
-    if(err.innerText) {
+    if (err.innerText) {
         err.style.visibility = "hidden";
     }
 } );

@@ -63,6 +63,7 @@ img {
     margin: 0 auto;
     padding-bottom: 16px;
     margin-top: 16px;
+    background-color: #f0f7ff;
 }
 
 .underline {
@@ -135,4 +136,20 @@ input[type="text"]:focus::placeholder {
 input[type="text"]:focus {
     outline: none;
     caret-color: #219ebc;
+}
+
+@media (min-width: 821px) {
+    .langGroup {
+        display: inline;
+    }
+}
+
+@media (max-width: 820px) {
+    .greetBtn {
+        display: block;
+        text-align: center;
+        position: relative;
+        left: 40%;
+        margin-top: 10px;
+    }
 }
