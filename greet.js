@@ -13,11 +13,14 @@ let counter = 0;
 
 let namesGreeted = {};
 
+let names;
+
 function Greetings() {
 
     let greeting = "";
     let errorMsg;
     let errorVisibility = "hidden";
+    
 
     function setGreeting(name, radioBtn) {
         const engGreeting = "Hello";
@@ -40,17 +43,36 @@ function Greetings() {
     }
 
     function setCounter(name) {
-        if(namesGreeted[name] === undefined) {
-            namesGreeted[name] = true;
+        
+
+        if(namesGreeted[name.toLowerCase()] === undefined) {
+            namesGreeted[name.toLowerCase()] = true;
         }
 
-        if (!localStorage[name]) {
+        if (!localStorage[name.toLowerCase()]) {
             counter++;
         }
 
-        localStorage[name] = true;
+        localStorage[name.toLowerCase()] = true;
 
-        localStorage['greetedTimes'] = counter;    
+        if (names === undefined) {
+
+            names = [];
+        }
+
+        if (!names.includes(name.toLowerCase())) {
+
+            names.push(name.toLowerCase());
+        }
+
+
+        let stringNames = JSON.stringify(names);
+
+        localStorage['greetedNames'] = stringNames;
+
+        localStorage['greetedTimes'] = counter;
+        
+        // console.log(JSON.parse(localStorage['greetedNames']))
         
     }
 
@@ -60,6 +82,7 @@ function Greetings() {
 
     function setReset() {
         counter = 0;
+        names = [];
         localStorage.clear();
         localStorage['greetedTimes'] = counter;
         namesGreeted = {};
@@ -115,6 +138,14 @@ function displayGreeting() {
         greetings.setCounter(person.value);
     
         numGreeted.innerText = localStorage['greetedTimes'];
+
+        person.value = "";
+
+        radBtns.forEach((item) => {
+            if (item.checked) {
+                item.checked = false;
+            }
+        })
 }
 
 function greetingsClicked() {
@@ -137,6 +168,12 @@ if(localStorage['greetedTimes']) {
     counter = Number(localStorage['greetedTimes']);
     numGreeted.innerText = localStorage['greetedTimes'];
 }
+
+if(localStorage['greetedNames']) {
+    names = JSON.parse(localStorage['greetedNames']);
+}
+
+// console.log(names)
 
 function reset() {
     greetings.setReset();
