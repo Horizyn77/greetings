@@ -11,9 +11,7 @@ const greetings = Greetings();
 
 let counter = 0;
 
-let namesGreeted = {};
-
-let names;
+let namesGreeted;
 
 function Greetings() {
 
@@ -44,35 +42,25 @@ function Greetings() {
 
     function setCounter(name) {
         
+        name = name.toLowerCase();
 
-        if(namesGreeted[name.toLowerCase()] === undefined) {
-            namesGreeted[name.toLowerCase()] = true;
+        if (namesGreeted === undefined) {
+
+            namesGreeted = [];
+        
         }
 
-        if (!localStorage[name.toLowerCase()]) {
+        if (!namesGreeted.includes(name)) {
+
+            namesGreeted.push(name);
             counter++;
         }
 
-        localStorage[name.toLowerCase()] = true;
-
-        if (names === undefined) {
-
-            names = [];
-        }
-
-        if (!names.includes(name.toLowerCase())) {
-
-            names.push(name.toLowerCase());
-        }
-
-
-        let stringNames = JSON.stringify(names);
+        let stringNames = JSON.stringify(namesGreeted);
 
         localStorage['greetedNames'] = stringNames;
 
         localStorage['greetedTimes'] = counter;
-        
-        // console.log(JSON.parse(localStorage['greetedNames']))
         
     }
 
@@ -164,16 +152,14 @@ function greetingsClicked() {
     err.style.visibility = greetings.getErrorVisibility();
 }
 
-if(localStorage['greetedTimes']) {
+if (localStorage['greetedTimes']) {
     counter = Number(localStorage['greetedTimes']);
     numGreeted.innerText = localStorage['greetedTimes'];
 }
 
-if(localStorage['greetedNames']) {
-    names = JSON.parse(localStorage['greetedNames']);
+if (localStorage['greetedNames']) {
+    namesGreeted = JSON.parse(localStorage['greetedNames']);
 }
-
-// console.log(names)
 
 function reset() {
     greetings.setReset();
