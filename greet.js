@@ -11,7 +11,7 @@ const greetings = Greetings();
 
 let counter = 0;
 
-let namesGreeted;
+let namesGreeted = [];
 
 function Greetings() {
 
@@ -44,11 +44,11 @@ function Greetings() {
         
         name = name.toLowerCase();
 
-        if (namesGreeted === undefined) {
+        // if (namesGreeted === undefined) {
 
-            namesGreeted = [];
+        //     namesGreeted = [];
         
-        }
+        // }
 
         if (!namesGreeted.includes(name)) {
 
@@ -70,10 +70,9 @@ function Greetings() {
 
     function setReset() {
         counter = 0;
-        names = [];
+        namesGreeted = [];
         localStorage.clear();
         localStorage['greetedTimes'] = counter;
-        namesGreeted = {};
     }
 
     function setErrMsg(input, checked, nums) {

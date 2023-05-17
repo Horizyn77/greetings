@@ -20,6 +20,7 @@ describe("Testing my Greetings function", function() {
             greetings.setReset();
             greetings.setGreeting("Hidaayat", "eng");
             greetings.setCounter("Hidaayat");
+    
 
             assert.equal(1, greetings.getCounter());
         })
