@@ -44,12 +44,6 @@ function Greetings() {
         
         name = name.toLowerCase();
 
-        // if (namesGreeted === undefined) {
-
-        //     namesGreeted = [];
-        
-        // }
-
         if (!namesGreeted.includes(name)) {
 
             namesGreeted.push(name);
